@@ -13,19 +13,30 @@ class Theater:
     
     def add_viewer(self, viewer: Viewer) -> None:
         """ Adds a viewer to the theater, returning True if successful. If there are no seats left, return False. """
-        pass
-        # Add code here
+
+        # Check to see if there are any more seats
+        if self.current_row > self.num_rows:
+            return False
+
+        self.rows[self.current_row - 1].append(viewer)
+
+        if len(self.rows[self.current_row - 1]) == self.row_size:
+            self.current_row += 1
+
+        return True
     
     def get_number_of_viewers(self) -> int:
         """ Returns the number of viewers in the theater """
-        pass
-        # Add code here
+        count = 0
+        for row in self.rows:
+            count += len(row)
+        return count
 
 
 def main():
     theater = Theater()
 
-    viewers = [Viewer(f"Viewer {i}") for i in range(220)]
+    viewers = [Viewer(f"Person {i}") for i in range(1, 221)]
 
     for viewer in viewers:
         success = theater.add_viewer(viewer)
